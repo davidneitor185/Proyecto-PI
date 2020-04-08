@@ -1,0 +1,183 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modelo;
+
+import Servicios.Fachada;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Santiago
+ */
+public class InfectadoDAO extends PersonaDAO {
+    
+    public int grabarInf(Infectado inf){      
+        Connection con = null;
+        PreparedStatement pstm;
+        pstm = null;
+        int rtdo;
+        rtdo = 0;
+        try{
+            con = Fachada.getConnection();
+            String sql = "INSERT INTO infectado values (?,?,?,?,?)";
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, inf.getEstado());
+            pstm.setString(2, inf.getFecha_D());
+            pstm.setString(3,inf.getId_Persona());
+            pstm.setString(4,inf.getPais_Pro());
+            pstm.setString(5,inf.getTipo_cont());
+            rtdo = pstm.executeUpdate();  
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"ID : " + 
+                        ex.getErrorCode() + "\nError :" + ex.getMessage());
+        }
+        finally{
+            try{
+                if(pstm!=null) pstm.close();                
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"ID : " + 
+                        ex.getErrorCode() + "\nError :" + ex.getMessage());
+            }
+        }
+        return rtdo;
+    }
+    
+     /**
+     * 
+     * @param p Objeto de la clase Programa a grabar
+     * @return rtdo resultado de la operación modificar
+     */
+    public int modificarInf(Infectado inf){      
+        Connection con = null;
+        PreparedStatement pstm;
+        pstm = null;
+        int rtdo;
+        rtdo = 0;
+        try{
+            con = Fachada.getConnection();
+            String sql = "UPDATE infectado " +
+                         "SET estado = ?, fecha_d = ?, id_persona = ?, " +
+                         "pais_pro = ?, tipo_cont = ? "
+                    +    "WHERE id_persona = ?";
+            pstm = con.prepareStatement(sql);            
+            pstm.setString(1, inf.getEstado());
+            pstm.setString(2, inf.getFecha_D());
+            pstm.setString(3, inf.getId_Persona());
+            pstm.setString(4, inf.getPais_Pro());
+            pstm.setString(5, inf.getTipo_cont());
+            rtdo = pstm.executeUpdate();  
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"ID : " + 
+                        ex.getErrorCode() + "\nError :" + ex.getMessage());
+        }
+        finally{
+            try{
+                if(pstm!=null) pstm.close();                
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"ID : " + 
+                        ex.getErrorCode() + "\nError :" + ex.getMessage());
+            }
+        }
+        return rtdo;
+    }
+            
+    /**
+     * 
+     * @param codigo código del programa a borrar
+     * @return rtdo resultado de la operación borrar
+     */
+    public int borrarInf(String id){      
+        Connection con = null;
+        PreparedStatement pstm = null;
+        int rtdo;
+        rtdo = 0;
+        try{
+            con = Fachada.getConnection();
+            String sql = "DELETE FROM infectado WHERE id_persona = ? ";
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, id);
+            rtdo = pstm.executeUpdate(); 
+            return rtdo;
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"ID : " + 
+                        ex.getErrorCode() + "\nError :" + ex.getMessage());
+        } 
+        finally{
+            try{
+                if(pstm!=null) pstm.close();                
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"Código : " + 
+                        ex.getErrorCode() + "\nError :" + ex.getMessage());
+            }
+        }
+        return rtdo;
+    }
+    /**
+     * 
+     * @param codigo codigo del programa a listar, 0 se listaran todos
+     * @return ArrayList, lista de objetos Programa
+     */
+    public ArrayList<Infectado> listadoInf(String id){      
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ArrayList<Infectado> listado = new ArrayList<>();
+        try{
+            con = Fachada.getConnection();
+            String sql="";
+            if(id.equalsIgnoreCase("0")){
+                sql = "SELECT * FROM infectado ORDER BY id_persona";            
+            }else{
+                sql = "SELECT * FROM infectado where id_persona = ? "
+                    + "ORDER BY id_persona";      
+            }                        
+            pstm = con.prepareStatement(sql);
+            
+            if(id != "0"){
+                pstm.setString(1, id);
+            }
+            
+            rs = pstm.executeQuery();
+                        
+            Infectado inf = null;
+            while(rs.next()){
+                inf = new Infectado();
+                inf.setEstado(rs.getString("estado"));
+                inf.setFecha_D(rs.getString("fecha_d"));
+                inf.setId_Persona(rs.getString("id_persona"));
+                inf.setPais_Pro(rs.getString("pais_pro"));
+                inf.setTipo_cont(rs.getString("tipo_cont"));
+                listado.add(inf);
+            }
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"ID : " + 
+                        ex.getErrorCode() + "\nError :" + ex.getMessage());
+        }
+        finally{
+            try{
+                if(rs!=null) rs.close();
+                if(pstm!=null) pstm.close();                
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"ID : " + 
+                        ex.getErrorCode() + "\nError :" + ex.getMessage());
+            }
+        }
+        return listado;
+    }
+}
