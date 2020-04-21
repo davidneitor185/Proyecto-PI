@@ -5,7 +5,7 @@
  */
 package covid19;
 
-import Servicios.Fachada;
+import Vista.Principal;
 
 /**
  *
@@ -18,7 +18,8 @@ public class Covid19 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Fachada fachada = new Fachada();
+        Principal ventana = new Principal();
+        ventana.setVisible(true);
     }
     
 }

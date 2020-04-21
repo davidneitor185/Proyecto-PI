@@ -12,7 +12,7 @@ package modelo;
 public class Infectado extends Persona {
     private String estado;
     private String fecha_D;
-    private String id_Persona;
+    private String id_infectado;
     private String pais_Pro;
     private String tipo_cont;
 
@@ -21,10 +21,10 @@ public class Infectado extends Persona {
     
     
 
-    public Infectado(String estado, String fecha_D, String id_Persona, String pais_Pro, String tipo_cont) {
+    public Infectado(String estado, String fecha_D, String id_infectado, String pais_Pro, String tipo_cont) {
         this.estado = estado;
         this.fecha_D = fecha_D;
-        this.id_Persona = id_Persona;
+        this.id_infectado = id_infectado;
         this.pais_Pro = pais_Pro;
         this.tipo_cont = tipo_cont;
     }
@@ -45,12 +45,12 @@ public class Infectado extends Persona {
         this.fecha_D = fecha_D;
     }
 
-    public String getId_Persona() {
-        return id_Persona;
+    public String getId_Infectado() {
+        return id_infectado;
     }
 
-    public void setId_Persona(String id_Persona) {
-        this.id_Persona = id_Persona;
+    public void setId_Infectado(String id_infectado) {
+        this.id_infectado = id_infectado;
     }
 
     public String getPais_Pro() {

@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
  *
  * @author Deiby Rodriguez
  */
-public class RelacionadoDAO extends PersonaDAO{
+public class RelacionadoDAO {
 
     public RelacionadoDAO() {
     }
     /**
      * 
-     * @param p Objeto de la clase Programa a grabar
+     * @param p Objeto de la clase Relacionado a grabar
      * @return rtdo resultado de la operación grbar
      */
     public int grabarRelacionado(Relacionado p){      
@@ -31,12 +31,12 @@ public class RelacionadoDAO extends PersonaDAO{
         rtdo = 0;
         try{
             con = Fachada.getConnection();
-            String sql = "INSERT INTO relacionado values (?,?,?,?)";
+            String sql = "INSERT INTO relacionado (id_focoinfec, id_relacionado,fecha,lugar) VALUES(?,?,?,?)";
             pstm = con.prepareStatement(sql);
-            pstm.setString(1, p.getId_persona());
-            pstm.setString(2, p.getId_infectado());
-            pstm.setString(3,p.getFecha());
-            pstm.setString(4,p.getLugar());
+            pstm.setString(1, p.getId_focoinfec());
+            pstm.setString(2, p.getId_relacionado());
+            pstm.setString(3, p.getFecha());
+            pstm.setString(4, p.getLugar());
             rtdo = pstm.executeUpdate();  
         }
         catch(SQLException ex){
@@ -69,13 +69,13 @@ public class RelacionadoDAO extends PersonaDAO{
         try{
             con = Fachada.getConnection();
             String sql = "UPDATE relacionado " +
-                         "SET id_infectado = ?, fecha = ?, lugar = ? "
-                    +    "WHERE id_persona=?";
+                         "SET id_focoinfec = ?, fecha = ?, lugar = ? "
+                    +    "WHERE id_relacionado=?";
             pstm = con.prepareStatement(sql);
-            pstm.setString(1, p.getId_infectado());
-            pstm.setString(2,p.getFecha());
-            pstm.setString(3,p.getLugar());
-            pstm.setString(4, p.getId_persona());
+            pstm.setString(1, p.getId_focoinfec());
+            pstm.setString(2, p.getFecha());
+            pstm.setString(3, p.getLugar());
+            pstm.setString(4, p.getId_relacionado());
             rtdo = pstm.executeUpdate();  
         }
         catch(SQLException ex){
@@ -96,19 +96,19 @@ public class RelacionadoDAO extends PersonaDAO{
             
     /**
      * 
-     * @param id_persona id de la persona a borrar
+     * @param id_relacionado id de la persona a borrar
      * @return rtdo resultado de la operación borrar
      */
-    public int borrarRelacionado(String  id_persona){      
+    public int borrarRelacionado(String  id_relacionado){      
         Connection con = null;
         PreparedStatement pstm = null;
         int rtdo;
         rtdo = 0;
         try{
             con = Fachada.getConnection();
-            String sql = "DELETE FROM relacionado WHERE id_persona = ? ";
+            String sql = "DELETE FROM relacionado WHERE id_relacionado = ? ";
             pstm = con.prepareStatement(sql);
-            pstm.setString(1, id_persona);
+            pstm.setString(1, id_relacionado);
             rtdo = pstm.executeUpdate(); 
             return rtdo;
         }
@@ -129,10 +129,10 @@ public class RelacionadoDAO extends PersonaDAO{
     }
     /**
      * 
-     * @param id_persona id de la persona del programa a listar, 0 se listaran todos
+     * @param id_relacionado id de la persona del programa a listar, 0 se listaran todos
      * @return ArrayList, lista de objetos Relacionados
      */
-    public ArrayList<Relacionado> listadoRelacionados(String id_persona){      
+    public ArrayList<Relacionado> listadoRelacionados(String id_relacionado){      
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -140,16 +140,16 @@ public class RelacionadoDAO extends PersonaDAO{
         try{
             con = Fachada.getConnection();
             String sql="";
-            if(id_persona.equalsIgnoreCase("0")){
-                sql = "SELECT * FROM relacionado ORDER BY id_persona";            
+            if(id_relacionado.equalsIgnoreCase("0")){
+                sql = "SELECT * FROM relacionado ORDER BY id_relacionado";            
             }else{
-                sql = "SELECT * FROM relacionado WHERE id_persona = ? "
-                    + "ORDER BY id_persona";      
+                sql = "SELECT * FROM relacionado WHERE id_relacionado = ? "
+                    + "ORDER BY id_relacionado";      
             }                        
             pstm = con.prepareStatement(sql);
             
-            if(id_persona != "0"){
-                pstm.setString(1, id_persona);
+            if(id_relacionado != "0"){
+                pstm.setString(1, id_relacionado);
             }
             
             rs = pstm.executeQuery();
@@ -157,8 +157,8 @@ public class RelacionadoDAO extends PersonaDAO{
             Relacionado relacionado = null;
             while(rs.next()){
                 relacionado = new Relacionado();
-                relacionado.setId_persona(rs.getString("id_persona"));
-                relacionado.setId_infectado(rs.getString("id_infectado"));
+                relacionado.setId_relacionado(rs.getString("id_relacionado"));
+                relacionado.setId_focoinfec(rs.getString("id_focoinfec"));
                 relacionado.setFecha(rs.getString("fecha"));
                 relacionado.setLugar(rs.getString("lugar"));
                 listado.add(relacionado);

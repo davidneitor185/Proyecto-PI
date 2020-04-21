@@ -27,11 +27,13 @@ public class InfectadoDAO extends PersonaDAO {
         rtdo = 0;
         try{
             con = Fachada.getConnection();
-            String sql = "INSERT INTO infectado values (?,?,?,?,?)";
+            String sql = "INSERT INTO infectado (estado,fecha_d,id_infectado,id_persona,pais_pro,tipo_cont)"
+                    + " VALUES(?,?,?,?,?,?)";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, inf.getEstado());
             pstm.setString(2, inf.getFecha_D());
-            pstm.setString(3,inf.getId_Persona());
+            pstm.setString(3,inf.getId_Infectado());
+            pstm.setString(3,inf.getId());
             pstm.setString(4,inf.getPais_Pro());
             pstm.setString(5,inf.getTipo_cont());
             rtdo = pstm.executeUpdate();  
@@ -66,13 +68,13 @@ public class InfectadoDAO extends PersonaDAO {
         try{
             con = Fachada.getConnection();
             String sql = "UPDATE infectado " +
-                         "SET estado = ?, fecha_d = ?, id_persona = ?, " +
+                         "SET estado = ?, fecha_d = ?, id_infectado = ?, " +
                          "pais_pro = ?, tipo_cont = ? "
-                    +    "WHERE id_persona = ?";
+                    +    "WHERE id_infectado = ?";
             pstm = con.prepareStatement(sql);            
             pstm.setString(1, inf.getEstado());
             pstm.setString(2, inf.getFecha_D());
-            pstm.setString(3, inf.getId_Persona());
+            pstm.setString(3, inf.getId_Infectado());
             pstm.setString(4, inf.getPais_Pro());
             pstm.setString(5, inf.getTipo_cont());
             rtdo = pstm.executeUpdate();  
@@ -105,7 +107,7 @@ public class InfectadoDAO extends PersonaDAO {
         rtdo = 0;
         try{
             con = Fachada.getConnection();
-            String sql = "DELETE FROM infectado WHERE id_persona = ? ";
+            String sql = "DELETE FROM infectado WHERE id_infectado = ? ";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, id);
             rtdo = pstm.executeUpdate(); 
@@ -140,10 +142,10 @@ public class InfectadoDAO extends PersonaDAO {
             con = Fachada.getConnection();
             String sql="";
             if(id.equalsIgnoreCase("0")){
-                sql = "SELECT * FROM infectado ORDER BY id_persona";            
+                sql = "SELECT * FROM infectado ORDER BY id_infectado";            
             }else{
-                sql = "SELECT * FROM infectado where id_persona = ? "
-                    + "ORDER BY id_persona";      
+                sql = "SELECT * FROM infectado where id_infectado = ? "
+                    + "ORDER BY id_infectado";      
             }                        
             pstm = con.prepareStatement(sql);
             
@@ -158,7 +160,7 @@ public class InfectadoDAO extends PersonaDAO {
                 inf = new Infectado();
                 inf.setEstado(rs.getString("estado"));
                 inf.setFecha_D(rs.getString("fecha_d"));
-                inf.setId_Persona(rs.getString("id_persona"));
+                inf.setId_Infectado(rs.getString("id_infectado"));
                 inf.setPais_Pro(rs.getString("pais_pro"));
                 inf.setTipo_cont(rs.getString("tipo_cont"));
                 listado.add(inf);

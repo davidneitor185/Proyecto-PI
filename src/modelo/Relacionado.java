@@ -12,37 +12,38 @@ package modelo;
  */
 public class Relacionado extends Persona{
     
-    private String id_persona;
-    private String id_infectado;
+    private String id_focoinfec;
+    private String id_relacionado;
     private String fecha;
     private String lugar;
 
     public Relacionado() {
     }
 
-    public Relacionado(String id_persona, String id_infectado, String fecha, String lugar) {
-        this.id_persona = id_persona;
-        this.id_infectado = id_infectado;
+    public Relacionado(String id_focoinfec, String id_relacionado, String fecha, String lugar) {
+        
+        this.id_focoinfec = id_focoinfec;
+        this.id_relacionado = id_relacionado;
         this.fecha = fecha;
         this.lugar = lugar;
     }
 
-    public String getId_persona() {
-        return id_persona;
+    public String getId_focoinfec() {
+        return id_focoinfec;
     }
 
-    public void setId_persona(String id_persona) {
-        this.id_persona = id_persona;
+    public void setId_focoinfec(String id_infectado) {
+        this.id_focoinfec = id_infectado;
     }
 
-    public String getId_infectado() {
-        return id_infectado;
+    public String getId_relacionado() {
+        return id_relacionado;
     }
 
-    public void setId_infectado(String id_infectado) {
-        this.id_infectado = id_infectado;
+    public void setId_relacionado(String id_persona) {
+        this.id_relacionado = id_persona;
     }
-
+    
     public String getFecha() {
         return fecha;
     }

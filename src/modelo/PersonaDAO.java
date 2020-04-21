@@ -23,13 +23,14 @@ public class PersonaDAO {
      * @param p Objeto de la clase Ppersona a grabar
      * @return rtdo resultado de la operación grabar
      */
-    public int grabarPrograma(Persona p){      
+    public int guardarPersona(Persona p){      
         Connection con = null;
         PreparedStatement pstm = null;
         int rtdo = 0;
         try{
             con = Fachada.getConnection();
-            String sql = "INSERT INTO persona values (?,?,?,?,?,?)";
+            String sql = "INSERT INTO persona (nombre, edad, sexo, ciudad_o,"
+                    + " departamento, id) values (?,?,?,?,?,?)";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, p.getNombre());
             pstm.setInt(2, p.getEdad());
@@ -61,7 +62,7 @@ public class PersonaDAO {
      * @param p Objeto de la clase persona a modificar
      * @return rtdo resultado de la operación modificar
      */
-    public int modificarPrograma(Persona p){      
+    public int modificarPersona(Persona p){      
         Connection con = null;
         PreparedStatement pstm = null;
         int rtdo = 0;
@@ -100,7 +101,7 @@ public class PersonaDAO {
      * @param id string identificador de persona a modificar
      * @return rtdo resultado de la operación borrar
      */
-    public int borrarPrograma(String id){      
+    public int borrarPersona(String id){      
         Connection con = null;
         PreparedStatement pstm = null;
         int rtdo = 0;
