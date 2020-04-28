@@ -6,7 +6,9 @@
 
 package Vista;
 
+import Controlador.InfectadoControlador;
 import Controlador.PersonaContolador;
+import modelo.InfectadoDAO;
 import modelo.PersonaDAO;
 
 /**
@@ -65,6 +67,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Ingresar un infectado");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -111,6 +118,26 @@ public class Principal extends javax.swing.JFrame {
             vista.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        InfectadoIG vista = new InfectadoIG();
+        InfectadoDAO modelo = new InfectadoDAO();
+        
+        InfectadoControlador controlador = new InfectadoControlador(modelo, vista);
+        
+        int x = (jDesktopPane1.getWidth() / 2) - vista.getWidth() /2;
+        int y = (jDesktopPane1.getHeight() / 2) - vista.getHeight() /2;
+
+        if (vista.isShowing()){
+            vista.setLocation(x,y);
+        }
+        else{
+            jDesktopPane1.add(vista);
+            vista.setLocation(x,y);
+            vista.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

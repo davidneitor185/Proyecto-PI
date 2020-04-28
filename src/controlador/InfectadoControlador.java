@@ -6,7 +6,7 @@
 package Controlador;
 
 
-import Vista.PersonaIG;
+import Vista.InfectadoIG;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,9 +18,9 @@ import modelo.*;
  */
 public class InfectadoControlador {
     private InfectadoDAO modelo;
-    private PersonaIG vista;
+    private InfectadoIG vista;
     
-     public InfectadoControlador(InfectadoDAO modelo, PersonaIG vista) {
+     public InfectadoControlador(InfectadoDAO modelo, InfectadoIG vista) {
         this.modelo = modelo;
         this.vista = vista;
         

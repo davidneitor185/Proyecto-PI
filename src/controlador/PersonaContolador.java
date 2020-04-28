@@ -118,7 +118,7 @@ public class PersonaContolador {
                     vista.gestionMensajes("Actualización exitosa",
                             "Confirmación ", JOptionPane.INFORMATION_MESSAGE); 
                     vista.cancelarAction();
-                    //vista.cargarPersonas(modelo.listadoPersonas("0"));           
+                    vista.cargarPersonas(modelo.listadoPersonas("0"));           
                 } else {
                     vista.gestionMensajes("Actualización Falida",
                             "Confirmación ", JOptionPane.ERROR_MESSAGE);                 
