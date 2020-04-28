@@ -92,6 +92,20 @@ public class PersonaIG extends javax.swing.JInternalFrame {
         }
     }
     
+     public void cargarPersonas(ArrayList<Persona> listPersonas){
+        limpiarTabla();
+        for(int i= 0; i < listPersonas.size(); i++){
+            mTabla.addRow(new Object[]{
+            listPersonas.get(i).getId(),
+            listPersonas.get(i).getNombre(),
+            listPersonas.get(i).getEdad(),
+            listPersonas.get(i).getSexo(),
+            listPersonas.get(i).getDepartamento(),
+            listPersonas.get(i).getCiudad_O()           
+            });
+        }
+    }
+    
     public void addListenerBtnNuevo(ActionListener listenPersona){
         btnNuevo.addActionListener(listenPersona);
     }
